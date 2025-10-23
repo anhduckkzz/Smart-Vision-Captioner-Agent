@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Vision Captioner Agent</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <h1>Smart Vision Captioner Agent</h1>
+        <p class="tagline">Generate captions with Salesforce BLIP, then turn them into actionable insights with OpenRouter.</p>
+      </div>
+      <div class="status" id="status" data-tone="info" aria-live="polite">Ready when you are.</div>
+    </header>
+
+    <main class="grid">
+      <section class="panel keys" aria-labelledby="keys-title">
+        <div class="panel-header">
+          <h2 id="keys-title">API Access</h2>
+          <p>Keys are stored locally in your browser only.</p>
+        </div>
+        <label class="field">
+          <span>Hugging Face Token</span>
+          <input type="password" id="hf-key" placeholder="hf_..." autocomplete="off">
+        </label>
+        <label class="field">
+          <span>OpenRouter API Key</span>
+          <input type="password" id="or-key" placeholder="sk-or-..." autocomplete="off">
+        </label>
+        <div class="model-selectors">
+          <label class="field">
+            <span>BLIP Model</span>
+            <select id="blip-model">
+              <option value="Salesforce/blip-image-captioning-large" selected>Salesforce/blip-image-captioning-large</option>
+              <option value="Salesforce/blip-image-captioning-base">Salesforce/blip-image-captioning-base</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>OpenRouter Model</span>
+            <select id="or-model">
+              <option value="qwen/qwen2.5-7b-instruct:free" selected>qwen/qwen2.5-7b-instruct:free</option>
+              <option value="gryphe/mythomist-7b:free">gryphe/mythomist-7b:free</option>
+              <option value="mistralai/mistral-7b-instruct:free">mistralai/mistral-7b-instruct:free</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="panel input" aria-labelledby="input-title">
+        <div class="panel-header">
+          <h2 id="input-title">Image Input</h2>
+          <p>Upload your own image or try a sample.</p>
+        </div>
+        <div class="samples" id="samples">
+          <button class="sample" data-sample="samples/burnt_pcb.jpg">
+            <img src="samples/burnt_pcb.jpg" alt="Sample of a burnt circuit board">
+            <span>Burnt PCB</span>
+          </button>
+          <button class="sample" data-sample="samples/lab_equipment.jpg">
+            <img src="samples/lab_equipment.jpg" alt="Sample of lab equipment">
+            <span>Lab Equipment</span>
+          </button>
+          <button class="sample" data-sample="samples/classroom.jpg">
+            <img src="samples/classroom.jpg" alt="Sample of a classroom">
+            <span>Classroom</span>
+          </button>
+        </div>
+        <label class="upload field">
+          <span>Upload Image</span>
+          <input type="file" id="file-input" accept="image/*">
+        </label>
+        <div class="preview" id="preview" aria-live="polite">
+          <p>No image selected yet.</p>
+        </div>
+      </section>
+
+      <section class="panel prompt" aria-labelledby="prompt-title">
+        <div class="panel-header">
+          <h2 id="prompt-title">Insight Prompt</h2>
+          <p>Customize how the LLM should reason about the caption.</p>
+        </div>
+        <textarea id="prompt" rows="6">You are an AI vision assistant. Given the raw caption below, produce a concise, professional insight in 1–2 sentences: (1) describe the scene or potential issue; (2) give one actionable suggestion. Keep it factual and avoid speculation.</textarea>
+        <div class="actions">
+          <button id="analyze" class="primary">Caption &amp; Analyze</button>
+          <button id="clear" class="ghost" type="button">Clear</button>
+        </div>
+      </section>
+
+      <section class="panel output" aria-labelledby="output-title">
+        <div class="panel-header">
+          <h2 id="output-title">Results</h2>
+          <p>Caption on the left, AI insight on the right.</p>
+        </div>
+        <div class="results-grid">
+          <article class="result-card">
+            <h3>🧾 Caption</h3>
+            <p id="caption-output" class="result-text">Awaiting analysis...</p>
+          </article>
+          <article class="result-card">
+            <h3>🤖 Insight</h3>
+            <p id="insight-output" class="result-text">Your insight will appear here.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Built for local-first privacy: keys never leave your browser. Salesforce BLIP + OpenRouter powered.</p>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
