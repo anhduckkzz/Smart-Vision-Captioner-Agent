@@ -36,10 +36,6 @@ Before running the app, make sure you have:
 2. API credentials:
    - Hugging Face token with access to Salesforce BLIP models.
    - OpenRouter API key (for example: `qwen/qwen2.5-7b-instruct:free`).
-3. (Optional) Sample JPGs placed in `smart-vision-captioner/samples/`:
-   - `burnt_pcb.jpg`
-   - `lab_equipment.jpg`
-   - `classroom.jpg`
 
 > If these images are missing, the UI shows placeholders and instructions on how to add them.
 
